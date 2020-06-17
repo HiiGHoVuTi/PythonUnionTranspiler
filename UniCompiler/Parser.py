@@ -59,7 +59,8 @@ def parse(raw):
     arguments = ZeroOrMore(delimitedList(expression))
     
     # Statements
-    include_statement = Combine(Literal("#include") + Optional(" ") + Optional("<") + Word(alphanums) + Optional(">"))
+    include_statement = Combine(Literal("#include") + Optional(" ") + (\
+        Optional("<") + Word(alphanums) + Optional(">") | quotedString))
 
     return_statement = Keyword ("return") + arguments
     delete_statement = Keyword ("delete") + expression
